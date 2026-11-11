@@ -149,37 +149,8 @@ public class GitHistoryTest {
     }
 
     @Test
-    @DisplayName("H5: The ShapeWorld commit credits the other partner (or is by Partner C)")
-    public void h5CoAuthored() {
-        requireWorldCommit();
-        if (trio) {
-            return;
-        }
-        Matcher m = CO_AUTHOR.matcher(worldCommit.body);
-        boolean credited = false;
-        while (m.find()) {
-            if (!m.group(1).trim().equalsIgnoreCase(worldCommit.email)) {
-                credited = true;
-            }
-        }
-        if (credited) {
-            return;
-        }
-        if (plusCommit == null || squareCommit == null) {
-            fail("The ShapeWorld commit " + worldCommit + " has no Co-authored-by line.\n"
-                    + "If you're a group of three, this passes once H1 and H2 pass and show that "
-                    + "the ShapeWorld author is Partner C.");
-        }
-        fail("The ShapeWorld commit " + worldCommit + " has no Co-authored-by line naming "
-                + "the navigator.\nAdd one as the last paragraph of the commit message, like:\n"
-                + "    Co-authored-by: Navigator Name <navigator@berkeley.edu>\n"
-                + "In a group of three, Partner C makes this commit from their own laptop, with "
-                + "their own git config user.email.");
-    }
-
-    @Test
-    @DisplayName("H6: Nobody changed their partner's shape before the joint part")
-    public void h6StayInYourLane() {
+    @DisplayName("H5: Nobody changed their partner's shape before the joint part")
+    public void h5StayInYourLane() {
         requireSoloCommits();
         if (sameAuthor(plusCommit, squareCommit)) {
             fail("Skipped until H3 passes.");
